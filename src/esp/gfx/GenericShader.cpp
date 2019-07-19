@@ -20,7 +20,9 @@ enum { TextureLayer = 0 };
 GenericShader::GenericShader(const Flags flags,
                              Magnum::GL::Version version,
                              const std::string& vertexShaderFilename,
-                             const std::string& fragmentShaderFilename) : BaseShader(version, vertexShaderFilename, fragmentShaderFilename), flags_(flags) {
+                             const std::string& fragmentShaderFilename)
+    : BaseShader(version, vertexShaderFilename, "", fragmentShaderFilename),
+      flags_(flags) {
   loadShaders();
 }
 
@@ -40,25 +42,25 @@ void GenericShader::loadShaders() {
 
   MAGNUM_ASSERT_GL_VERSION_SUPPORTED(glVersion_);
 
-  Magnum::GL::Shader vert{glVersion_,
-                          Magnum::GL::Shader::Type::Vertex};
-  Magnum::GL::Shader frag{glVersion_,
-                          Magnum::GL::Shader::Type::Fragment};
+  Magnum::GL::Shader vert{glVersion_, Magnum::GL::Shader::Type::Vertex};
+  Magnum::GL::Shader frag{glVersion_, Magnum::GL::Shader::Type::Fragment};
 
   const std::string shaderDir = STR(SHADER_DIR);
-  const std::string vertexShaderFile = std::string(shaderDir) + "/" + vertexShaderFilename_;
-  const std::string fragmentShaderFile = std::string(shaderDir) + "/" + fragmentShaderFilename_;
+  const std::string vertexShaderFile =
+      std::string(shaderDir) + "/" + vertexShaderFilename_;
+  const std::string fragmentShaderFile =
+      std::string(shaderDir) + "/" + fragmentShaderFilename_;
 
   vert.addSource(flags_ & Flag::Textured ? "#define TEXTURED\n" : "")
       .addSource(flags_ & Flag::VertexColored ? "#define VERTEX_COLORED\n" : "")
       .addSource(flags_ & Flag::PerVertexIds ? "#define PER_VERTEX_IDS\n" : "")
       .addFile(vertexShaderFile);
-  
+
   frag.addSource(flags_ & Flag::Textured ? "#define TEXTURED\n" : "")
       .addSource(flags_ & Flag::VertexColored ? "#define VERTEX_COLORED\n" : "")
       .addSource(flags_ & Flag::PerVertexIds ? "#define PER_VERTEX_IDS\n" : "")
       .addSource(flags_ & Flag::PrimitiveIDTextured ? "#define ID_TEXTURED\n"
-                                                   : "")
+                                                    : "")
       .addFile(fragmentShaderFile);
 
   CORRADE_INTERNAL_ASSERT_OUTPUT(Magnum::GL::Shader::compile({vert, frag}));

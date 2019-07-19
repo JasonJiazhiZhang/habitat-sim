@@ -10,6 +10,7 @@
 #include <Magnum/GL/AbstractShaderProgram.h>
 #include <Magnum/Math/Matrix4.h>
 
+#include "BaseShader.h"
 #include "esp/assets/PTexMeshData.h"
 
 namespace esp {
@@ -21,11 +22,17 @@ class PTexMeshData;
 
 namespace gfx {
 
-class PTexMeshShader : public Magnum::GL::AbstractShaderProgram {
+class PTexMeshShader : public BaseShader {
  public:
   typedef Magnum::GL::Attribute<0, Magnum::Vector4> Position;
 
-  explicit PTexMeshShader();
+  explicit PTexMeshShader(
+      Magnum::GL::Version version = Magnum::GL::Version::GL410,
+      const std::string& vertexShaderFilename = "ptex-default-gl410.vert",
+      const std::string& geometryShaderFilename = "ptex-default-gl410.geom",
+      const std::string& fragmentShaderFilename = "ptex-default-gl410.frag");
+
+  virtual void loadShaders();
 
   PTexMeshShader& bindTexture(Magnum::GL::Texture2D& texture,
                               uint32_t textureUnit = 0) {

@@ -13,10 +13,14 @@
 namespace esp {
 namespace gfx {
 
-BaseShader::BaseShader(Magnum::GL::Version version, 
-                       const std::string& vertexShaderFilename, 
-                       const std::string& fragmentShaderFilename): glVersion_(version), vertexShaderFilename_(vertexShaderFilename), fragmentShaderFilename_(fragmentShaderFilename) {
-}
+BaseShader::BaseShader(Magnum::GL::Version version,
+                       const std::string& vertexShaderFilename,
+                       const std::string& geometryShaderFilename,
+                       const std::string& fragmentShaderFilename)
+    : glVersion_(version),
+      vertexShaderFilename_(vertexShaderFilename),
+      geometryShaderFilename_(geometryShaderFilename),
+      fragmentShaderFilename_(fragmentShaderFilename) {}
 
 void BaseShader::setGLVersion(Magnum::GL::Version version) {
   glVersion_ = version;
@@ -34,5 +38,5 @@ void BaseShader::setFragmentShaderFilename(std::string& filename) {
   fragmentShaderFilename_ = filename;
 }
 
-} // namespace gfx
-} // namespace esp
+}  // namespace gfx
+}  // namespace esp

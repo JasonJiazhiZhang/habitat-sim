@@ -43,8 +43,8 @@ class GenericShader : public BaseShader {
    */
   explicit GenericShader(Flags flags = {},
                          Magnum::GL::Version version = Magnum::GL::Version::GL410,
-                         const std::string& vertexShaderFilename = "generic-default.vert",
-                         const std::string& fragmentShaderFilename = "generic-default.frag");
+                         const std::string& vertexShaderFilename = "generic-default-gl410.vert",
+                         const std::string& fragmentShaderFilename = "generic-default-gl410.frag");
 
   //! @brief vertex positions
   typedef Magnum::GL::Attribute<0, Magnum::Vector4> Position;

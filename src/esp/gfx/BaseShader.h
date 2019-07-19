@@ -15,6 +15,7 @@ class BaseShader : public Magnum::GL::AbstractShaderProgram {
  public:
    BaseShader(Magnum::GL::Version version = Magnum::GL::Version::GL410,
               const std::string& vertexShaderFilename = "",
+              const std::string& geometryShaderFilename = "",
               const std::string& fragmentShaderFilename = "");
    virtual ~BaseShader() {};
    void setGLVersion(Magnum::GL::Version version);
