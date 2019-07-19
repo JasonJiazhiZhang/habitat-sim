@@ -148,4 +148,7 @@ inline bool equal(const std::map<K, std::shared_ptr<V>>& a,
                     });
 }
 
+#define XSTR(x) #x
+#define STR(x) XSTR(x)
+
 }  // namespace esp

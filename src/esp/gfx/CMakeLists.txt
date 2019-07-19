@@ -1,5 +1,7 @@
 file(GLOB_RECURSE gfx_SOURCES "*.cpp")
 
+set(PTEX_SHADER_DIR "${CMAKE_CURRENT_LIST_DIR}/shaders" CACHE PATH "Where the shaders live")
+
 # If not GUI build, remove Viewer source
 # TODO(MS) Viewer really ought to be in separate module that is disabled
 if(BUILD_GUI_VIEWERS)

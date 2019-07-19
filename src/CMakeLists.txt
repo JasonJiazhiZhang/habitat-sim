@@ -34,9 +34,12 @@ if(NOT CMAKE_BUILD_TYPE)
       "Choose build, options are: None Debug Release RelWithDebInfo MinSizeRel"
       FORCE)
 endif()
+
+set(SHADER_DIR "${CMAKE_CURRENT_LIST_DIR}/shaders" CACHE PATH "Where the shader program live")
+
 # avoid ld visibility warnings, should be done by CMAKE_CXX_VISIBILITY_PRESET
 # but need cmake_policy(SET CMP0063 NEW) also which seems to not work
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden -DSHADER_DIR=${SHADER_DIR}")
 
 # build options
 option(BUILD_TEST "Build test binaries" OFF)

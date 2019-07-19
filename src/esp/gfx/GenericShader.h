@@ -14,11 +14,12 @@
 #include <Magnum/Math/Matrix4.h>
 
 #include "esp/core/esp.h"
+#include "BaseShader.h"
 
 namespace esp {
 namespace gfx {
 
-class GenericShader : public Magnum::GL::AbstractShaderProgram {
+class GenericShader : public BaseShader {
  public:
   //! Configuration flag
   enum class Flag : uint8_t {
@@ -40,7 +41,10 @@ class GenericShader : public Magnum::GL::AbstractShaderProgram {
    * @brief Constructor
    * @param flags Flags
    */
-  explicit GenericShader(Flags flags = {});
+  explicit GenericShader(Flags flags = {},
+                         Magnum::GL::Version version = Magnum::GL::Version::GL410,
+                         const std::string& vertexShaderFilename = "generic-default.vert",
+                         const std::string& fragmentShaderFilename = "generic-default.frag");
 
   //! @brief vertex positions
   typedef Magnum::GL::Attribute<0, Magnum::Vector4> Position;
@@ -115,6 +119,8 @@ class GenericShader : public Magnum::GL::AbstractShaderProgram {
    * @see @ref setColor()
    */
   GenericShader& bindTexture(Magnum::GL::Texture2D& texture);
+
+  virtual void loadShaders();
 
  protected:
   Flags flags_;
